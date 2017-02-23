@@ -1,0 +1,37 @@
+package controllers
+
+import (
+	"fmt"
+	"github.com/astaxie/beego"
+)
+type LoginController struct{
+	beego.Controller
+}
+func (this *LoginController) Get(){
+	fmt.Printf("222222\n")
+	this.TplName = "login.html"
+}
+func (this *LoginController) Post(){
+	fmt.Printf("5555555555\n")
+}
+/*
+func checkAccount(ctx *context.Context) bool {
+	fmt.Printf("111111111111\n")
+		
+	ck, err := ctx.Request.Cookie("uname")
+	if err != nil {
+		return false
+	}
+	uname := ck.Value
+
+	ck, err = ctx.Request.Cookie("pwd")
+		if err != nil {
+		return false
+	}
+	pwd := ck.Value
+
+	varExit := beego.AppConfig.String("uname") == uname && beego.AppConfig.String("pwd") == pwd
+	fmt.Printf(fmt.Sprint(varExit))
+	fmt.Printf(" 111\n")
+	return varExit
+}*/

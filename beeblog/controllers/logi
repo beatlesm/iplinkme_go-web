@@ -1,0 +1,19 @@
+package controllers
+
+import (
+	"fmt"
+	"github.com/astaxie/beego"
+)
+
+type LoginController struct {
+	beego.Controller
+}
+
+func (this *LoginController) Get() {
+	fmt.Printf("CCCCCCCC\n")
+	this.TplName = "category.html"
+}
+
+func (this *LoginController) Post() {
+	
+}
