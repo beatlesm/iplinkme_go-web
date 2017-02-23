@@ -49,13 +49,15 @@ func (this *LoginController) Post(){
 	   	if autologin {
 	   		maxAge = 1<<31 - 1
 	   	}
+	   	fmt.Printf("5555555555\n")
 	   	this.Ctx.SetCookie("uname", uname, maxAge, "/")
 	   	this.Ctx.SetCookie("pwd", pwd, maxAge, "/")
 	}
-	//fmt.Printf(" 666\n")
+	fmt.Printf(" 666\n")
 	this.Redirect("/", 301)
+	//this.Redirect("/login", 301)
 	
-	return
+	//return
 }
 
 func checkAccount(ctx *context.Context) bool {
@@ -74,7 +76,7 @@ func checkAccount(ctx *context.Context) bool {
 	pwd := ck.Value
 
 	varExit := beego.AppConfig.String("uname") == uname && beego.AppConfig.String("pwd") == pwd
-	fmt.Printf(fmt.Sprint(varExit))
-	fmt.Printf(" 111\n")
+	//fmt.Printf(fmt.Sprint(varExit))
+	//fmt.Printf(" 111\n")
 	return varExit
 }
