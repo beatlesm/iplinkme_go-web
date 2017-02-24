@@ -33,12 +33,12 @@ func (this *CategoryController) Get() {
 		if len(id) == 0 {
 			break
 		}
-		/*
-			err := models.DeleteCategory(name)
-			if err != nil{
-				beego.Error(err)
-			}
-		*/
+		fmt.Printf("CC检查是否有del操作\n")
+		err := models.DeleteCategory(id)
+		if err != nil {
+			beego.Error(err)
+		}
+		fmt.Printf("CC检查del操作\n")
 		this.Redirect("/category", 301)
 		return
 	}

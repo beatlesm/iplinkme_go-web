@@ -7,6 +7,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"path"
+	"strconv"
 	"time"
 )
 
@@ -86,4 +87,14 @@ func GetAllCategories() ([]*Category, error) {
 	_, err := qs.All(&cates)
 	fmt.Printf("CC run GetAllCategories \n")
 	return cates, err
+}
+func DeleteCategory(id string) error {
+	cid, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		return err
+	}
+	o := orm.NewOrm()
+	cate := &Category{Id: cid}
+	_, err = o.Delete(cate)
+	return err
 }
