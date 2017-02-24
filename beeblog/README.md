@@ -13,3 +13,10 @@ func (this *LoginController) Get(){
 
 beeblog00.0403
 添加了帐号于密码的验证
+
+beeblog00.0404
+
+添加了登录页面的返回按钮、
+添加了category页面
+对数据库进行了添加、读取等操作
+
