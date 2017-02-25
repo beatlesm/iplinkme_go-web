@@ -38,11 +38,25 @@ type Topic struct {
 	Attachment       string
 	Created          time.Time `orm:"index"`
 	Updated          time.Time `orm:"index"`
-	View             int64     `orm:"index"`
+	Views            int64     `orm:"index"`
 	Author           string
 	ReplyTime        time.Time `orm:"index"`
 	ReplyCount       int64
 	RepleyLastUserId int64
+}
+
+func AddTopic(title, content string) error {
+	o := orm.NewOrm()
+	topic := &Topic{
+		Title:     title,
+		Content:   content,
+		Created:   time.Now(),
+		Updated:   time.Now(),
+		ReplyTime: time.Now(),
+	}
+	//插入
+	_, err := o.Insert(topic)
+	return err
 }
 
 func RegisterDB() {
@@ -80,9 +94,18 @@ func AddCategory(name string) error {
 	}
 	return nil
 }
+func GetAllTopics() ([]*Topic, error) {
+	o := orm.NewOrm()
+	topics := make([]*Topic, 0)
+	// 查询table
+	qs := o.QueryTable("topic")
+	_, err := qs.All(&topics)
+	return topics, err
+}
 func GetAllCategories() ([]*Category, error) {
 	o := orm.NewOrm()
 	cates := make([]*Category, 0)
+	// 查询table
 	qs := o.QueryTable("category")
 	_, err := qs.All(&cates)
 	//fmt.Printf("CC run GetAllCategories \n")
