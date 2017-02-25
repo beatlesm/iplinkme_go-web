@@ -1,3 +1,4 @@
+
 beeblog00.0402
 实现了login登录 、在首页显示登录、退出等功能。
 
@@ -6,7 +7,6 @@ beeblog00.0402
 必须修改login.go
 
 func (this *LoginController) Get(){
-	fmt.Printf("222222\n")
 	isExit := this.Input().Get("ex") == "true"
 代码.
 原因未找到

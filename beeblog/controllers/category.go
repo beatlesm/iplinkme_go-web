@@ -12,7 +12,7 @@ type CategoryController struct {
 
 // 检查是否有操作
 func (this *CategoryController) Get() {
-	fmt.Printf("CC检查是否有操作\n")
+	//fmt.Printf("CC检查是否有操作\n")
 	// 检查是否有操作
 	op := this.Input().Get("op")
 	switch op {
@@ -33,12 +33,12 @@ func (this *CategoryController) Get() {
 		if len(id) == 0 {
 			break
 		}
-		fmt.Printf("CC检查是否有del操作\n")
+		//fmt.Printf("CC检查是否有del操作\n")
 		err := models.DeleteCategory(id)
 		if err != nil {
 			beego.Error(err)
 		}
-		fmt.Printf("CC检查del操作\n")
+		//fmt.Printf("CC检查del操作\n")
 		this.Redirect("/category", 301)
 		return
 	}
@@ -47,14 +47,10 @@ func (this *CategoryController) Get() {
 	this.TplName = "category.html"
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
 
-	fmt.Printf("CC show  Data\n")
+	//fmt.Printf("CC show  Data\n")
 	var err error
 	this.Data["Categories"], err = models.GetAllCategories()
 	if err != nil {
 		beego.Error(err)
 	}
-}
-
-func (this *CategoryController) Post() {
-
 }

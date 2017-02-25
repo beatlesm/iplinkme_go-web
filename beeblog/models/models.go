@@ -1,7 +1,7 @@
 package models
 
 import (
-	"fmt"
+	//"fmt"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/mattn/go-sqlite3"
@@ -65,14 +65,14 @@ func AddCategory(name string) error {
 		Created:   time.Now(),
 		TopicTime: time.Now(),
 	}
-	fmt.Printf("CC run AddCategory AAAAAAAAAAAAAAAA\n")
+	//fmt.Printf("CC run AddCategory AAAAAAAAAAAAAAAA\n")
 	// 查询数据
 	qs := o.QueryTable("category")
 	err := qs.Filter("title", name).One(cate)
 	if err == nil {
 		return err
 	}
-	fmt.Printf("CC run AddCategory BBBBBBBBBBBBBBBB\n")
+	//fmt.Printf("CC run AddCategory BBBBBBBBBBBBBBBB\n")
 	// 插入数据
 	_, err = o.Insert(cate)
 	if err != nil {
@@ -85,7 +85,7 @@ func GetAllCategories() ([]*Category, error) {
 	cates := make([]*Category, 0)
 	qs := o.QueryTable("category")
 	_, err := qs.All(&cates)
-	fmt.Printf("CC run GetAllCategories \n")
+	//fmt.Printf("CC run GetAllCategories \n")
 	return cates, err
 }
 func DeleteCategory(id string) error {
