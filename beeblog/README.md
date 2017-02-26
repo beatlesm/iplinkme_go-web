@@ -23,4 +23,8 @@ func (this *LoginController) Get(){
 添加了topic.go topic.html页面
 ### beeblog00.0502
 添加了topic页面的数据库添加、读取等操作
+### beeblog00.0503
+添加了topic页面的文章排序、操作
+添加首页显示
+
 

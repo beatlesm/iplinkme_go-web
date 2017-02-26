@@ -34,7 +34,7 @@ type Topic struct {
 	Id               int64
 	Uid              int64
 	Title            string
-	Content          string `orm:"size(5000)"`
+	Content          string `orm:"size(5000)"` //文章内容
 	Attachment       string
 	Created          time.Time `orm:"index"`
 	Updated          time.Time `orm:"index"`
@@ -94,12 +94,17 @@ func AddCategory(name string) error {
 	}
 	return nil
 }
-func GetAllTopics() ([]*Topic, error) {
+func GetAllTopics(isDesc bool) ([]*Topic, error) {
 	o := orm.NewOrm()
 	topics := make([]*Topic, 0)
 	// 查询table
 	qs := o.QueryTable("topic")
-	_, err := qs.All(&topics)
+	var err error
+	if isDesc {
+		_, err = qs.OrderBy("-created").All(&topics)
+	} else {
+		_, err = qs.All(&topics)
+	}
 	return topics, err
 }
 func GetAllCategories() ([]*Category, error) {

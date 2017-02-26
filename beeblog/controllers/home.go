@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"beeblog/models"
 	//"fmt"
 	"github.com/astaxie/beego"
 )
@@ -16,9 +17,15 @@ func (this *MainController) Get() {
 	this.TplName = "home.html"
 	//this.Ctx.WriteString(fmt.Sprint(checkAccount(this.Ctx)))
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
-
-
-
+	//this.Data["Topics"] = topics
+	topics, err := models.GetAllTopics(true)
+	//err, topics := models.GetAllTopics(false)//err
+	if err != nil {
+		beego.Error(err)
+		//beego.Error(err.Error)
+	} else {
+		this.Data["Topics"] = topics
+	}
 
 	//this.Data["TrueCond"] = true
 	//this.Data["FalseCond"] = false
