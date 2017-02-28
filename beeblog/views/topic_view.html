@@ -1,0 +1,46 @@
+{{template "header" .}}
+   <title>{{.Topic.Title}}- 我的beego博客</title>
+</head>
+   
+
+    <body>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+            {{template "navbar" .}}
+            </div>
+    	</div>
+    	<div class="container">
+			<div class="page-header">
+            <br>
+            <!--
+            {{with .Topic}}
+            <h1>{{.Title}}</h1>
+            {{.Content}}
+            {{end}}
+
+                <h1>{{.Topic.Title}}</h1>
+                {{.Topic.Content}}
+            -->
+			
+
+           
+           <h1>{{.Topic.Title}}</h1>
+           <a type="submit" href="/topic/modify?tid={{.Tid}}" class="btn-default">修改文章</a>
+            <button type="submit" class="btn btn-default">Submit</button>
+            
+            <p>
+                {{.Topic.Content}}
+            </p>
+            
+
+          
+			</div>
+		</div>
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+    	
+    </body>
+
+</html>

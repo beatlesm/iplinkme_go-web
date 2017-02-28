@@ -26,5 +26,11 @@ func (this *LoginController) Get(){
 ### beeblog00.0503
 添加了topic页面的文章排序、操作
 添加首页显示
+## 02/27/2017
+### beeblog00.0504
+添加了topic/view页面的文章排序、读取操作
+## 02/28/2017
+### beeblog00.0505
+添加了topic/view页面的修改文章操作
 
 

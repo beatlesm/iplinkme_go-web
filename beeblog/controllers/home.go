@@ -18,6 +18,7 @@ func (this *MainController) Get() {
 	//this.Ctx.WriteString(fmt.Sprint(checkAccount(this.Ctx)))
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
 	//this.Data["Topics"] = topics
+	//topics, err := models.GetAllTopics(false)
 	topics, err := models.GetAllTopics(true)
 	//err, topics := models.GetAllTopics(false)//err
 	if err != nil {
