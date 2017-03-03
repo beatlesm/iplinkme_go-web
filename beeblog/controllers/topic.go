@@ -33,12 +33,13 @@ func (this *TopicController) Post() {
 	tid := this.Input().Get("tid")
 	title := this.Input().Get("title")
 	content := this.Input().Get("content")
+	category := this.Input().Get("category")
 
 	var err error
 	if len(tid) == 0 {
-		err = models.AddTopic(title, content)
+		err = models.AddTopic(title, category, content)
 	} else {
-		err = models.ModifyTopic(tid, title, content)
+		err = models.ModifyTopic(tid, title, category, content)
 	}
 	if err != nil {
 		beego.Error(err)
@@ -85,4 +86,27 @@ func (this *TopicController) Modify() {
 	}
 	this.Data["Topic"] = topic
 	this.Data["Tid"] = tid
+}
+func (this *TopicController) Delete() {
+	if !checkAccount(this.Ctx) {
+		this.Redirect("/login", 302)
+		return
+	}
+	/*
+		//方法1:
+		err := models.DeleteTopic(this.Input().Get("tid"))
+		HTML:
+		<th>
+			<a href="/topic/delete?tid={{.Id}}">删除</a>
+		</th>
+	*/
+	//方法2:
+	err := models.DeleteTopic(this.Ctx.Input.Param("0"))
+	//<th>
+	//<a href="/topic/delete/{{.Id}}">删除</a>
+	//</th>
+	if err != nil {
+		beego.Error(err)
+	}
+	this.Redirect("/", 302)
 }

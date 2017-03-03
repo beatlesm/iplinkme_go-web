@@ -33,4 +33,10 @@ func (this *LoginController) Get(){
 ### beeblog00.0505
 添加了topic/view页面的修改文章操作
 
+## 03/1/2017
+### beeblog00.0506
+添加了topic/view页面的删除文章操作
 
+## 03/3/2017 星期5
+### beeblog00.0601
+添加回复页面的操作 

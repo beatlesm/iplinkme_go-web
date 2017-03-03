@@ -17,22 +17,32 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+					<a href="/topic/add" class="btn btn-default">添加文章</a>
 						<th>#</th>
 						<th>文章名称</th>
-						<a href="/topic/add" class="btn btn-default">添加文章</a>
 						<th>最后更新</th>
 						<th>浏览</th>
 						<th>回复数</th>
+						<th>修改</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{range .Topics}}
 					<tr>
 						<th>{{.Id}}</th>
-						<th>{{.Title}}</th>
+						<th>
+							<a href="/topic/view/{{.Id}}">{{.Title}}</a>
+						</th>
 						<th>{{.Updated}}</th>
 						<th>{{.Views}}</th>
 						<th>{{.ReplyCount}}</th>
+						<th>
+							<a href="/topic/modify?tid={{.Id}}">修改</a>
+						</th>
+						<th>
+							<a href="/topic/delete/{{.Id}}">删除</a>
+						</th>
 					</tr>
 					{{end}}
 				</tbody>

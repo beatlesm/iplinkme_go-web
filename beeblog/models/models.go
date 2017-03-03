@@ -35,6 +35,7 @@ type Topic struct {
 	Id               int64
 	Uid              int64
 	Title            string
+	Category         string
 	Content          string `orm:"size(5000)"` //文章内容
 	Attachment       string
 	Created          time.Time `orm:"index"`
@@ -45,6 +46,13 @@ type Topic struct {
 	ReplyCount       int64
 	RepleyLastUserId int64
 }
+type Comment struct {
+	Id      int64
+	Tid     int64
+	Name    string
+	Content string    `orm:"size(1000)"`
+	Created time.Time `orm:"index"`
+}
 
 func RegisterDB() {
 	// 检查数据库文件
@@ -53,12 +61,28 @@ func RegisterDB() {
 		os.Create(_DB_NAME)
 	}
 	// 注册模型
-	orm.RegisterModel(new(Category), new(Topic))
+	orm.RegisterModel(new(Category), new(Topic), new(Comment))
 	// 注册驱动（“sqlite3” 属于默认注册，此处代码可省略）
 	orm.RegisterDriver(_SQLITE3_DRIVER, orm.DRSqlite)
 	// 注册默认数据库
 	orm.RegisterDataBase("default", _SQLITE3_DRIVER, _DB_NAME, 10)
 }
+func AddReply(tid, nickname, content string) error {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	if err != nil {
+		return err
+	}
+	reply := &Comment{
+		Tid:     tidNum,
+		Name:    nickname,
+		Content: content,
+		Created: time.Now(),
+	}
+	o := orm.NewOrm()
+	_, err = o.Insert(reply)
+	return err
+}
+
 func AddCategory(name string) error {
 	o := orm.NewOrm()
 	cate := &Category{
@@ -100,6 +124,19 @@ func DeleteCategory(id string) error {
 	_, err = o.Delete(cate)
 	return err
 }
+
+func DeleteTopic(tid string) error {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	if err != nil {
+		return err
+	}
+
+	o := orm.NewOrm()
+	topic := &Topic{Id: tidNum}
+	_, err = o.Delete(topic)
+	return err
+}
+
 func GetAllTopics(isDesc bool) ([]*Topic, error) {
 	o := orm.NewOrm()
 	topics := make([]*Topic, 0)
@@ -117,10 +154,11 @@ func GetAllTopics(isDesc bool) ([]*Topic, error) {
 	return topics, err
 }
 
-func AddTopic(title, content string) error {
+func AddTopic(title, category, content string) error {
 	o := orm.NewOrm()
 	topic := &Topic{
 		Title:     title,
+		Category:  category,
 		Content:   content,
 		Created:   time.Now(),
 		Updated:   time.Now(),
@@ -158,7 +196,7 @@ func GetTopic(tid string) (*Topic, error) {
 	return topic, err
 }
 
-func ModifyTopic(tid, title, content string) error {
+func ModifyTopic(tid, title, category, content string) error {
 	tidNum, err := strconv.ParseInt(tid, 10, 64)
 	if err != nil {
 		return err
@@ -167,6 +205,7 @@ func ModifyTopic(tid, title, content string) error {
 	topic := &Topic{Id: tidNum}
 	if o.Read(topic) == nil {
 		topic.Title = title
+		topic.Category = category
 		topic.Content = content
 		topic.Updated = time.Now()
 		o.Update(topic)
