@@ -159,13 +159,16 @@ func DeleteReply(rid string) error {
 	return err
 }
 
-func GetAllTopics(isDesc bool) ([]*Topic, error) {
+func GetAllTopics(cate string, isDesc bool) ([]*Topic, error) {
 	o := orm.NewOrm()
 	topics := make([]*Topic, 0)
 	// 查询table
 	qs := o.QueryTable("topic")
 	var err error
 	if isDesc {
+		if len(cate) > 0 {
+			qs = qs.Filter("category", cate)
+		}
 		//show topics
 		_, err = qs.OrderBy("-created").All(&topics)
 		fmt.Printf("4444444444\n")

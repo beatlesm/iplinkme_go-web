@@ -19,7 +19,7 @@ func (this *MainController) Get() {
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
 	//this.Data["Topics"] = topics
 	//topics, err := models.GetAllTopics(false)
-	topics, err := models.GetAllTopics(true)
+	topics, err := models.GetAllTopics(this.Input().Get("cate"), true)
 	//err, topics := models.GetAllTopics(false)//err
 	if err != nil {
 		beego.Error(err)
@@ -28,6 +28,11 @@ func (this *MainController) Get() {
 		this.Data["Topics"] = topics
 	}
 
+	categories, err := models.GetAllCategories()
+	if err != nil {
+		beego.Error(err)
+	}
+	this.Data["Categories"] = categories
 	//this.Data["TrueCond"] = true
 	//this.Data["FalseCond"] = false
 	//this.Data["Gmj"] = fmt.Sprint(checkAccount(this.Ctx))

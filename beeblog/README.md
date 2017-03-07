@@ -44,3 +44,6 @@ func (this *LoginController) Get(){
 ## 03/7/2017 星期2
 ### beeblog00.0602
 添加删除回复页面的操作 
+
+### beeblog00.0603
+添加home页面的文章分类 的操作 
