@@ -40,3 +40,7 @@ func (this *LoginController) Get(){
 ## 03/3/2017 星期5
 ### beeblog00.0601
 添加回复页面的操作 
+
+## 03/7/2017 星期2
+### beeblog00.0602
+添加删除回复页面的操作 

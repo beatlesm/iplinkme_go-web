@@ -70,8 +70,14 @@ func (this *TopicController) View() {
 	}
 	this.Data["Topic"] = topic
 	//this.Data["Tid"] = tid
-	this.Data["Tid"] = this.Ctx.Input.Param("0")
-
+	//this.Data["Tid"] = this.Ctx.Input.Param("0")
+	replies, err := models.GetAllReplies(this.Ctx.Input.Param("0"))
+	if err != nil {
+		beego.Error(err)
+		return
+	}
+	this.Data["Replies"] = replies
+	this.Data["IsLogin"] = checkAccount(this.Ctx)
 }
 
 func (this *TopicController) Modify() {

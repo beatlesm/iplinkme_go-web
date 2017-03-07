@@ -82,6 +82,18 @@ func AddReply(tid, nickname, content string) error {
 	_, err = o.Insert(reply)
 	return err
 }
+func GetAllReplies(tid string) (replies []*Comment, err error) {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	replies = make([]*Comment, 0)
+	o := orm.NewOrm()
+	qs := o.QueryTable("comment")
+	_, err = qs.Filter("tid", tidNum).All(&replies)
+	return replies, err
+}
 
 func AddCategory(name string) error {
 	o := orm.NewOrm()
@@ -134,6 +146,16 @@ func DeleteTopic(tid string) error {
 	o := orm.NewOrm()
 	topic := &Topic{Id: tidNum}
 	_, err = o.Delete(topic)
+	return err
+}
+func DeleteReply(rid string) error {
+	ridNum, err := strconv.ParseInt(rid, 10, 64)
+	if err != nil {
+		return err
+	}
+	o := orm.NewOrm()
+	reply := &Comment{Id: ridNum}
+	_, err = o.Delete(reply)
 	return err
 }
 
