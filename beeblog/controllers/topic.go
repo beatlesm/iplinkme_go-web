@@ -4,6 +4,7 @@ import (
 	"beeblog/models"
 	"fmt"
 	"github.com/astaxie/beego"
+	"strings"
 )
 
 type TopicController struct {
@@ -15,7 +16,7 @@ func (this *TopicController) Get() {
 	this.TplName = "topic.html"
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
 	//this.Data["Topics"] = topics
-	topics, err := models.GetAllTopics("", false)
+	topics, err := models.GetAllTopics("", "", false)
 	//err, topics := models.GetAllTopics(false)//err
 	if err != nil {
 		beego.Error(err)
@@ -34,12 +35,13 @@ func (this *TopicController) Post() {
 	title := this.Input().Get("title")
 	content := this.Input().Get("content")
 	category := this.Input().Get("category")
+	label := this.Input().Get("label")
 
 	var err error
 	if len(tid) == 0 {
-		err = models.AddTopic(title, category, content)
+		err = models.AddTopic(title, category, label, content)
 	} else {
-		err = models.ModifyTopic(tid, title, category, content)
+		err = models.ModifyTopic(tid, title, category, label, content)
 	}
 	if err != nil {
 		beego.Error(err)
@@ -52,35 +54,11 @@ func (this *TopicController) Add() {
 	this.TplName = "topic_add.html"
 	//this.Ctx.WriteString("add")
 }
-func (this *TopicController) View() {
-	this.TplName = "topic_view.html"
-	//this.Ctx.WriteString(fmt.Sprint(this.Ctx.Input.Param("0")))
-	//this.Ctx.WriteString(fmt.Sprint(this.Ctx.Input.Params("0"))) //err
-	//this.Ctx.WriteString("add")
-	//fmt.Printf("444444\n")
-	//fmt.Println(this.Ctx.Input.Param("0"))
-	//fmt.Println(this.Ctx.Input.Params("0"))
-
-	topic, err := models.GetTopic(this.Ctx.Input.Param("0"))
-	//topic, err := models.GetTopic(this.Ctx.Input.Params["0"])
-	if err != nil {
-		beego.Error(err)
-		this.Redirect("/", 302)
-		return
-	}
-	this.Data["Topic"] = topic
-	//this.Data["Tid"] = tid
-	//this.Data["Tid"] = this.Ctx.Input.Param("0")
-	replies, err := models.GetAllReplies(this.Ctx.Input.Param("0"))
-	if err != nil {
-		beego.Error(err)
-		return
-	}
-	this.Data["Replies"] = replies
-	this.Data["IsLogin"] = checkAccount(this.Ctx)
-}
 
 func (this *TopicController) Modify() {
+	if !checkAccount(this.Ctx) {
+		this.Redirect("/", 302)
+	}
 	this.TplName = "topic_modify.html"
 
 	tid := this.Input().Get("tid")
@@ -92,7 +70,39 @@ func (this *TopicController) Modify() {
 	}
 	this.Data["Topic"] = topic
 	this.Data["Tid"] = tid
+	this.Data["IsLogin"] = true
 }
+
+func (this *TopicController) View() {
+	this.TplName = "topic_view.html"
+	//this.Ctx.WriteString(fmt.Sprint(this.Ctx.Input.Param("0")))
+	//this.Ctx.WriteString(fmt.Sprint(this.Ctx.Input.Params("0"))) //err
+	//this.Ctx.WriteString("add")
+	//fmt.Printf("444444\n")
+	//fmt.Println(this.Ctx.Input.Param("0"))
+	//fmt.Println(this.Ctx.Input.Params("0"))
+	tid := this.Ctx.Input.Param("0")
+	topic, err := models.GetTopic(tid)
+	//topic.Labels
+	//topic, err := models.GetTopic(this.Ctx.Input.Params["0"])
+	if err != nil {
+		beego.Error(err)
+		this.Redirect("/", 302)
+		return
+	}
+	this.Data["Topic"] = topic
+	//this.Data["Tid"] = tid
+	//this.Data["Tid"] = this.Ctx.Input.Param("0")
+	this.Data["Labels"] = strings.Split(topic.Labels, " ")
+	replies, err := models.GetAllReplies(tid)
+	if err != nil {
+		beego.Error(err)
+		return
+	}
+	this.Data["Replies"] = replies
+	this.Data["IsLogin"] = checkAccount(this.Ctx)
+}
+
 func (this *TopicController) Delete() {
 	if !checkAccount(this.Ctx) {
 		this.Redirect("/login", 302)

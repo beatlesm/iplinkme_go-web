@@ -19,8 +19,10 @@ func (this *MainController) Get() {
 	this.Data["IsLogin"] = checkAccount(this.Ctx)
 	//this.Data["Topics"] = topics
 	//topics, err := models.GetAllTopics(false)
-	topics, err := models.GetAllTopics(this.Input().Get("cate"), true)
-	//err, topics := models.GetAllTopics(false)//err
+	topics, err := models.GetAllTopics(this.Input().Get("cate"), this.Input().Get("label"), true)
+	/*	n := len(topics)
+		fmt.Printf("CC  文章数 len =%d\n", n)
+	*/ //err, topics := models.GetAllTopics(false)//err
 	if err != nil {
 		beego.Error(err)
 		//beego.Error(err.Error)

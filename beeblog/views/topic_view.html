@@ -12,19 +12,26 @@
     	<div class="container">
 			<div class="page-header">
             <br>
-            <!--
+            
+
+            {{$labels := .Labels}}
             {{with .Topic}}
-            <h1>{{.Title}}</h1>
+            <h1>{{.Title}}   <small>{{.Category}}</small></h1>
+            <h5>
+                {{range $labels}}
+                <a href="/?labels={{.}}">{{.}}</a>
+                {{end}}
+            </h5>
             {{.Content}}
             {{end}}
 
-                <h1>{{.Topic.Title}}</h1>
-                {{.Topic.Content}}
-            -->
+<!--                 <h1>{{.Topic.Title}}</h1>
+                {{.Topic.Content}} -->
+            
 			
 
-           
-           <h1>{{.Topic.Title}}</h1>
+<!--            <h1>{{.Topic.Title}}</h1>
+         
            <a type="submit" href="/topic/modify?tid={{.Tid}}" class="btn-default">修改文章</a>
             <button type="submit" class="btn btn-default" onclick="location='/topic/modify?tid={{.Tid}}'">Submit</button>
             <button type="submit" class="btn btn-default" >
@@ -32,7 +39,7 @@
             </button>
             <p>
                 {{.Topic.Content}}
-            </p>
+            </p> -->
             
 
           

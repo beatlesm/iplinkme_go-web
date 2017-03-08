@@ -50,6 +50,10 @@ func (this *CategoryController) Get() {
 	//fmt.Printf("CC show  Data\n")
 	var err error
 	this.Data["Categories"], err = models.GetAllCategories()
+	//topics, err := models.GetAllTopics(this.Input().Get("cate"), true)
+	//n := len(topics)
+	//fmt.Printf("CC  文章数 len =%d\n", n)
+	//this.Data["TopicCount"] = len(topics)
 	if err != nil {
 		beego.Error(err)
 	}

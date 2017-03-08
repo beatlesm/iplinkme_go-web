@@ -47,3 +47,8 @@ func (this *LoginController) Get(){
 
 ### beeblog00.0603
 添加home页面的文章分类 的操作 
+
+## 03/8/2017 星期3
+### beeblog00.0604
+添加文章分页面 显示文章数的操作 
+添加文章标签页面 分类显示某个标签的文章（有bug） 
