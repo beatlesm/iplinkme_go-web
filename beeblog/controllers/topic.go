@@ -4,6 +4,7 @@ import (
 	"beeblog/models"
 	"fmt"
 	"github.com/astaxie/beego"
+	"path"
 	"strings"
 )
 
@@ -36,12 +37,29 @@ func (this *TopicController) Post() {
 	content := this.Input().Get("content")
 	category := this.Input().Get("category")
 	label := this.Input().Get("label")
+	//获取附件
+	_, fh, err := this.GetFile("attachment")
+	if err != nil {
+		beego.Error(err)
+	}
+	var attachment string
+	if fh != nil {
+		//保存 attactment
+		attachment = fh.Filename
+		beego.Info(attachment) //print info
+		//err = this.SaveToFile("attachment", attachment)// save to /
+		err = this.SaveToFile("attachment", path.Join("attachment", attachment))
 
-	var err error
+		if err != nil {
+			beego.Error(err)
+		}
+	}
+
+	// var err error
 	if len(tid) == 0 {
-		err = models.AddTopic(title, category, label, content)
+		err = models.AddTopic(title, category, label, content, attachment)
 	} else {
-		err = models.ModifyTopic(tid, title, category, label, content)
+		err = models.ModifyTopic(tid, title, category, label, content, attachment)
 	}
 	if err != nil {
 		beego.Error(err)
