@@ -28,8 +28,10 @@ func main() {
 	beego.Router("/reply/delete", &controllers.ReplyController{}, "get:Delete")
 	//创建附件目录
 	os.Mkdir("attachment", os.ModePerm)
-	//
-	beego.SetStaticPath("/attachment", "attachment")
+	//作为控制器
+	beego.Router("/attachment/:all", &controllers.AttachController{})
+	/*	//作为静态文件
+		beego.SetStaticPath("/attachment", "attachment")*/
 	//运行beego
 	beego.Run()
 }

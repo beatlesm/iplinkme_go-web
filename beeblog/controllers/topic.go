@@ -99,7 +99,10 @@ func (this *TopicController) View() {
 	//fmt.Printf("444444\n")
 	//fmt.Println(this.Ctx.Input.Param("0"))
 	//fmt.Println(this.Ctx.Input.Params("0"))
-	tid := this.Ctx.Input.Param("0")
+	reqUrl := this.Ctx.Request.RequestURI
+	i := strings.LastIndex(reqUrl, "/")
+	tid := reqUrl[i+1:]
+	//tid := this.Ctx.Input.Param("0")//f2: get tid
 	topic, err := models.GetTopic(tid)
 	//topic.Labels
 	//topic, err := models.GetTopic(this.Ctx.Input.Params["0"])
