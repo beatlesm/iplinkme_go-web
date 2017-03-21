@@ -12,18 +12,18 @@ type baseController struct {
 
 func (this *baseController) Prepare() {
 	lang := this.GetString("lang")
-	/*
-		if lang == "zh-CN" {
-			this.Lang = lang
-		} else {
-			this.Lang = "en-US"
-		}
-	*/
-	if lang == "en-US" {
+
+	if lang == "zh-CN" {
 		this.Lang = lang
 	} else {
-		this.Lang = "zh-CN"
+		this.Lang = "en-US"
 	}
+
+	/*	if lang == "en-US" {
+			this.Lang = lang
+		} else {
+			this.Lang = "zh-CN"
+		}*/
 	this.Data["Lang"] = this.Lang
 }
 
@@ -34,7 +34,8 @@ type MainController struct {
 func (this *MainController) Get() {
 	this.Data["Website"] = "beego.me"
 	this.Data["Email"] = "astaxie@gmail.com"
-	this.Data["Hi"] = this.Tr("hi")
-	this.Data["Bye"] = this.Tr("bye")
+	this.Data["About"] = "about"
+	this.Data["Hi"] = "hi"
+	this.Data["Bye"] = "bye"
 	this.TplName = "index.tpl"
 }

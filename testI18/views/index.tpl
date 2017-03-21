@@ -80,6 +80,10 @@
       Beego is a simple & powerful Go web framework which is inspired by tornado and sinatra.
     </div>
     <div class="description">
+      <p>{{i18n .Lang "hi"}}</p>
+      <p>{{i18n .Lang "bye"}}</p>
+      <p>{{i18n .Lang .About}}</p>
+      <p>{{i18n .Lang "about.about"}}</p>
       <p>{{.Lang}}</p>
       <p>{{.Hi}}</p>
       <p>{{.Bye}}</p>
