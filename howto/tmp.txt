@@ -1,0 +1,11 @@
+
+
+Device Type ID :My_RaspberryPI3
+
+
+Client ID:amzn1.application-oa2-client.af4c29be1c89494997059d87e2f33758
+
+
+
+
+Client Secret:c2afa9c39ca44e70ec67c5bb5621135fcdc47222eff88fe7810caafbba251ba7
