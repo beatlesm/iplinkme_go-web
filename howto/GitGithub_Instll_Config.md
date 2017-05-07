@@ -1,8 +1,8 @@
-#git与github安装、配置、pull、push
+# git与github安装、配置、pull、push
 
 操作系统是Ubuntu 16.04 LTS 64bit
 
-##1 安装git
+## 1 安装git
 
 **1>安装**
 
@@ -17,10 +17,11 @@ sudo apt-get install git-core 　
 ```
 git config --global user.name 用户名或者用户ID
 
-git config --global user.email 你邮箱 　　这两个选项会在以后你提交代码至本地仓库时自动填写到你的提交记录中去。
+git config --global user.email 你邮箱 　　
+这两个选项会在以后你提交代码至本地仓库时自动填写到你的提交记录中去。
 ```
 
-##2 使用git版本管理器本地管理你的项目
+## 2 使用git版本管理器本地管理你的项目
 
 **1>进入你项目的目录，进行git初始化，创建.git文件夹**
 
@@ -40,7 +41,7 @@ git init
 git commit -m 'first commit'  使用git show命令可以查看到你的提交记录：
 ```
 
-##3 配置github SSH
+## 3 配置github SSH
 
 　　SSH是什么？SSH是Secure Shell，是一种认证方式，github可以采用两种认证方式：SSH和https。两种的区别是SSH需要进行SSH key配置，但是每次Pull的时候是不需要输入用户名密码的，而https每次都要输入用户名密码的。
 
@@ -75,7 +76,7 @@ ssh -T git@github.com
 如果看到：Hi xxx! You’ve successfully authenticated, but GitHub does not provide shell access，则密钥上传成功。
 ```
 
-##4  push本地git仓库至github仓库
+## 4  push本地git仓库至github仓库
 
 **1>首先，我们要在github中建造一个public仓库。去网页版傻瓜式操作。**
 
@@ -109,7 +110,7 @@ git push origin master
 
 * 如果上一步使用的是SSH方式，那么命令就直接执行，如果使用Https方式，则每次push都需要输入密码
 
-##5 pull、fetch与clone
+## 5 pull、fetch与clone
 
 pull与push相反，是将代码从远程仓库同步至本地仓库并merge的命令
 
